@@ -6,8 +6,10 @@ import org.springframework.stereotype.Service;
 import com.generation.crm.model.Cliente;
 import com.generation.crm.repository.ClienteRepository;
 
+import java.util.NoSuchElementException;
 
-	@Service
+
+@Service
 	public class ClienteService {
 
 	    @Autowired
@@ -16,7 +18,7 @@ import com.generation.crm.repository.ClienteRepository;
 	    public Cliente verificarConvenio(Long clienteId) {
 
 	        return clienteRepository.verificarConvenio(clienteId)
-	                .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
+	                .orElseThrow(() -> new NoSuchElementException("Cliente não encontrado"));
 
 
 	    }
