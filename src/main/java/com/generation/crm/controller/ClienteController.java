@@ -59,15 +59,15 @@ public class ClienteController {
 	}
 
 
-//    @GetMapping("/{id}/verificarConvenio")
-//    public ResponseEntity<Object> verificarConvenio(@PathVariable Long id) {
-//        return clienteService.verificarConvenio(id);
-//    }
-
-    @PutMapping("/{id}/atualizarConvenio")
-    public String atualizarConvenio(@PathVariable Long id, @RequestParam Boolean convenio) {
-        return clienteService.atualizarConvenio(id, convenio);
+   @GetMapping("/{id}/verificarConvenio")
+    public ResponseEntity<Cliente> verificarConvenio(@PathVariable Long id) {
+        return ResponseEntity.ok(clienteService.verificarConvenio(id));
     }
+
+//    @PutMapping("/{id}/atualizarConvenio")
+//    public ResponseEntity<Cliente> atualizarConvenio(@PathVariable Long id, @RequestParam Boolean convenio) {
+//        return ResponseEntity.ok(clienteService.atualizarConvenio(id, convenio));
+//    }
 
 	@PostMapping
 	public ResponseEntity<Cliente> post(@Valid @RequestBody Cliente cliente) {

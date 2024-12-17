@@ -13,25 +13,21 @@ import com.generation.crm.repository.ClienteRepository;
 	    @Autowired
 	    private ClienteRepository clienteRepository;
 
-	    public Object verificarConvenio(Long clienteId) {
-	        Cliente cliente = clienteRepository.findById(clienteId)
+	    public Cliente verificarConvenio(Long clienteId) {
+	        return clienteRepository.findById(clienteId)
 	                .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
 
-	        if (cliente.getConvenio() != null && cliente.getConvenio()) {
-	            return true;
-	        } else {
-	            return "O cliente não tem convênio. Oferecemos opções particulares com descontos exclusivos!";
-	        }
+
 	    }
 
-	    public String atualizarConvenio(Long clienteId, Boolean convenio) {
-	        Cliente cliente = clienteRepository.findById(clienteId)
-	                .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
-
-	        cliente.setConvenio(convenio);
-	        clienteRepository.save(cliente);
-
-	        return "Status do convênio atualizado com sucesso!";
-	    }
+//	    public Cliente atualizarConvenio(Long clienteId, Boolean convenio) {
+//	        Cliente cliente = clienteRepository.findById(clienteId)
+//	                .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
+//
+//	        cliente.setConvenio(convenio);
+//	        clienteRepository.save(cliente);
+//
+//	        return cliente;
+//	    }
 } 
 

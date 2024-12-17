@@ -10,6 +10,8 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 
+import java.time.LocalDate;
+
 @Entity
 @Table(name = "tb_consultas")
 public class Consulta {
@@ -25,7 +27,7 @@ public class Consulta {
     private String queixa;
 
     @NotBlank
-    private String data;
+    private LocalDate data;
 
     @NotBlank
     private String medicoResponsavel;
@@ -73,11 +75,11 @@ public class Consulta {
         this.queixa = queixa;
     }
 
-    public String getData() {
+    public LocalDate getData() {
         return data;
     }
 
-    public void setData(String data) {
+    public void setData(LocalDate data) {
         this.data = data;
     }
 
