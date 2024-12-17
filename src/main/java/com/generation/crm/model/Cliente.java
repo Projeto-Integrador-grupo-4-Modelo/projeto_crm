@@ -49,7 +49,6 @@ public class Cliente {
 	private Boolean convenio; 
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "cliente", cascade = CascadeType.REMOVE)
-
 	@JsonIgnoreProperties("clientes")
 	private List<Consulta> consulta;
 

@@ -37,6 +37,10 @@ public class Consulta {
 	@JsonIgnoreProperties("consulta")
 	private Cliente cliente;
 
+	@ManyToOne
+	@JsonIgnoreProperties("usuario")
+	private Usuario usuario;
+
 	public Long getId() {
 		return id;
 	}
