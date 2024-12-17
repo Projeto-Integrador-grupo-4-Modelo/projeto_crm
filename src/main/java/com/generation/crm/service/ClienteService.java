@@ -14,20 +14,12 @@ import com.generation.crm.repository.ClienteRepository;
 	    private ClienteRepository clienteRepository;
 
 	    public Cliente verificarConvenio(Long clienteId) {
-	        return clienteRepository.findById(clienteId)
+
+	        return clienteRepository.verificarConvenio(clienteId)
 	                .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
 
 
 	    }
 
-//	    public Cliente atualizarConvenio(Long clienteId, Boolean convenio) {
-//	        Cliente cliente = clienteRepository.findById(clienteId)
-//	                .orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
-//
-//	        cliente.setConvenio(convenio);
-//	        clienteRepository.save(cliente);
-//
-//	        return cliente;
-//	    }
 } 
 

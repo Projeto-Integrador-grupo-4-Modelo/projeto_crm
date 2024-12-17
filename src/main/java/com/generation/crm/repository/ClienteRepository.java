@@ -1,6 +1,7 @@
 package com.generation.crm.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -19,6 +20,6 @@ public interface ClienteRepository extends JpaRepository<Cliente, Long> {
 	boolean existsByCpf(@Param("cpf") String cpf);
 
 	@Query(value = "SELECT * FROM db_crm.tb_clientes WHERE id=:id AND convenio=1",nativeQuery = true)
-	Cliente verificarConvenio(Long id);
+	Optional <Cliente> verificarConvenio(Long id);
 
 }
