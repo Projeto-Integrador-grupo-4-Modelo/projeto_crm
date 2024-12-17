@@ -4,3 +4,8 @@
 
 
 :heavy_check_mark: [Documentação Swagger - Sistema CRM Médico](https://github.com/user-attachments/files/18170276/Projeto.Integrador.-.Sistema.CRM.Medico.pdf)
+
+:heavy_check_mark: Relação entre tabelas:
+
+
+![image](https://github.com/user-attachments/assets/f3e45642-4ee4-4d94-aa1c-2794833e15b2)
