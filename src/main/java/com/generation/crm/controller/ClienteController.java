@@ -14,13 +14,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.generation.crm.model.Cliente;
 import com.generation.crm.repository.ClienteRepository;
+import com.generation.crm.service.ClienteService;
 
+import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Valid;
 
 @RestController
@@ -48,13 +51,30 @@ public class ClienteController {
 	}
 
 	@GetMapping("/cpf/{cpf}")
-	public ResponseEntity<List<Cliente>> getByCpf(@PathVariable String cpf) {
-		return ResponseEntity.ok(clienteRepository.findAllByCpfContainingIgnoreCase(cpf));
+	public ResponseEntity <Cliente> getByCpf(@PathVariable String cpf) {
+		return ResponseEntity.ok(clienteRepository.findAllByCpf(cpf));
 	}
+	
+	@Autowired
+    private ClienteService clienteService;
+
+    @GetMapping("/{id}/verificarConvenio")
+    public Object verificarConvenio(@PathVariable Long id) {
+        return clienteService.verificarConvenio(id);
+    }
+
+    @PutMapping("/{id}/atualizarConvenio")
+    public String atualizarConvenio(@PathVariable Long id, @RequestParam Boolean convenio) {
+        return clienteService.atualizarConvenio(id, convenio);
+    }
+
 
 	@PostMapping
 	public ResponseEntity<Cliente> post(@Valid @RequestBody Cliente cliente) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(clienteRepository.save(cliente));
+		if (!clienteRepository.existsByCpf(cliente.getCpf())) {
+			return ResponseEntity.status(HttpStatus.CREATED).body(clienteRepository.save(cliente));
+		}
+		throw new ConstraintViolationException("Este CPF já existe!", null);
 	}
 
 	@PutMapping

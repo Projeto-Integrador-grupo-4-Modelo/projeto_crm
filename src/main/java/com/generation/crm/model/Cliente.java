@@ -5,6 +5,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -13,6 +14,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "tb_clientes")
@@ -25,20 +28,25 @@ public class Cliente {
 	@NotBlank
 	private String nome;
 
+	@Column(unique = true) 
+	@NotBlank
 	@NotBlank
 	private String email;
 
 	@NotBlank
 	private String telefone;
-
+    
+	@Size(min = 11, max = 14)
+	@Column(unique = true) 
 	@NotBlank
+	@NotNull 
 	private String cpf;
 
 	@NotBlank
 	private String endereco;
 
 	@NotBlank
-	private String convenio;
+	private Boolean convenio; 
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "cliente", cascade = CascadeType.REMOVE)
 
@@ -93,11 +101,12 @@ public class Cliente {
 		this.endereco = endereco;
 	}
 
-	public String getConvenio() {
+
+	public Boolean getConvenio() {
 		return convenio;
 	}
 
-	public void setConvenio(String convenio) {
+	public void setConvenio(Boolean convenio) {
 		this.convenio = convenio;
 	}
 
