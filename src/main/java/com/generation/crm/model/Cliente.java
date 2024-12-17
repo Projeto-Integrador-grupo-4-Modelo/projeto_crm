@@ -45,7 +45,6 @@ public class Cliente {
 	@NotBlank
 	private String endereco;
 
-	@NotBlank
 	private Boolean convenio; 
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "cliente", cascade = CascadeType.REMOVE)

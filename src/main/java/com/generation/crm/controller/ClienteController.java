@@ -34,6 +34,9 @@ public class ClienteController {
 	@Autowired
 	private ClienteRepository clienteRepository;
 
+	@Autowired
+	private ClienteService clienteService;
+
 	@GetMapping
 	public ResponseEntity<List<Cliente>> getAll() {
 		return ResponseEntity.ok(clienteRepository.findAll());
@@ -54,20 +57,17 @@ public class ClienteController {
 	public ResponseEntity <Cliente> getByCpf(@PathVariable String cpf) {
 		return ResponseEntity.ok(clienteRepository.findAllByCpf(cpf));
 	}
-	
-	@Autowired
-    private ClienteService clienteService;
 
-    @GetMapping("/{id}/verificarConvenio")
-    public Object verificarConvenio(@PathVariable Long id) {
-        return clienteService.verificarConvenio(id);
-    }
+
+//    @GetMapping("/{id}/verificarConvenio")
+//    public ResponseEntity<Object> verificarConvenio(@PathVariable Long id) {
+//        return clienteService.verificarConvenio(id);
+//    }
 
     @PutMapping("/{id}/atualizarConvenio")
     public String atualizarConvenio(@PathVariable Long id, @RequestParam Boolean convenio) {
         return clienteService.atualizarConvenio(id, convenio);
     }
-
 
 	@PostMapping
 	public ResponseEntity<Cliente> post(@Valid @RequestBody Cliente cliente) {

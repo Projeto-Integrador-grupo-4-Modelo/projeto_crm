@@ -14,87 +14,95 @@ import jakarta.validation.constraints.NotBlank;
 @Table(name = "tb_consultas")
 public class Consulta {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	@NotBlank
-	private String especialidade;
+    @NotBlank
+    private String especialidade;
 
-	@NotBlank
-	private String queixa;
+    @NotBlank
+    private String queixa;
 
-	@NotBlank
-	private String data;
+    @NotBlank
+    private String data;
 
-	@NotBlank
-	private String medicoResponsavel;
+    @NotBlank
+    private String medicoResponsavel;
 
-	@NotBlank
-	private String status;
+    @NotBlank
+    private String status;
 
-	@ManyToOne
-	@JsonIgnoreProperties("consulta")
-	private Cliente cliente;
+    @ManyToOne
+    @JsonIgnoreProperties("consulta")
+    private Cliente cliente;
 
-	@ManyToOne
-	@JsonIgnoreProperties("usuario")
-	private Usuario usuario;
+    @ManyToOne
+    @JsonIgnoreProperties("consulta")
+    private Usuario usuario;
 
-	public Long getId() {
-		return id;
-	}
+    public Usuario getUsuario() {
+        return usuario;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
 
-	public String getEspecialidade() {
-		return especialidade;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setEspecialidade(String especialidade) {
-		this.especialidade = especialidade;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public String getQueixa() {
-		return queixa;
-	}
+    public String getEspecialidade() {
+        return especialidade;
+    }
 
-	public void setQueixa(String queixa) {
-		this.queixa = queixa;
-	}
+    public void setEspecialidade(String especialidade) {
+        this.especialidade = especialidade;
+    }
 
-	public String getData() {
-		return data;
-	}
+    public String getQueixa() {
+        return queixa;
+    }
 
-	public void setData(String data) {
-		this.data = data;
-	}
+    public void setQueixa(String queixa) {
+        this.queixa = queixa;
+    }
 
-	public String getMedicoResponsavel() {
-		return medicoResponsavel;
-	}
+    public String getData() {
+        return data;
+    }
 
-	public void setMedicoResponsavel(String medicoResponsavel) {
-		this.medicoResponsavel = medicoResponsavel;
-	}
+    public void setData(String data) {
+        this.data = data;
+    }
 
-	public String getStatus() {
-		return status;
-	}
+    public String getMedicoResponsavel() {
+        return medicoResponsavel;
+    }
 
-	public void setStatus(String status) {
-		this.status = status;
-	}
+    public void setMedicoResponsavel(String medicoResponsavel) {
+        this.medicoResponsavel = medicoResponsavel;
+    }
 
-	public Cliente getCliente() {
-		return cliente;
-	}
+    public String getStatus() {
+        return status;
+    }
 
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
-	}
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
 
 }
