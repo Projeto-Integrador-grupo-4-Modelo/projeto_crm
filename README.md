@@ -2,8 +2,7 @@
 
 :heavy_check_mark: [Link do Escopo](https://docs.google.com/document/d/1zghDvfozniPHFTFw2VUU5o050VF6lTaKD9dwTKNj9ps/edit?tab=t.0)
 
-
-:heavy_check_mark: [Documentação Swagger - Sistema CRM Médico.PDF](https://github.com/user-attachments/files/18170276/Projeto.Integrador.-.Sistema.CRM.Medico.pdf)
+:heavy_check_mark:[Documentação Swagger.pdf](https://github.com/user-attachments/files/18183496/Swagger.UI.pdf)
 
 :heavy_check_mark: [Link do Deploy](https://projeto-crm.onrender.com)
 
