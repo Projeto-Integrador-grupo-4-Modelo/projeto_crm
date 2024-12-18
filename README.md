@@ -2,10 +2,11 @@
 
 :heavy_check_mark: [Link do Escopo](https://docs.google.com/document/d/1zghDvfozniPHFTFw2VUU5o050VF6lTaKD9dwTKNj9ps/edit?tab=t.0)
 
-:heavy_check_mark:[Documentação Swagger.pdf](https://github.com/user-attachments/files/18185524/Swagger.UI.1.pdf)
+:heavy_check_mark:[Documentação Swagger.pdf](https://github.com/user-attachments/files/18187617/Swagger.UI.pdf)
 
 :heavy_check_mark: [Link do Deploy](https://projeto-crm.onrender.com/swagger-ui/index.html)
 
+:heavy_check_mark: [Link da apresentação no Canvas](https://www.canva.com/templates/EAFu3BBxGdM-blue-and-green-modern-medical-presentation/)
 
 :heavy_check_mark: Relação entre tabelas:
 
