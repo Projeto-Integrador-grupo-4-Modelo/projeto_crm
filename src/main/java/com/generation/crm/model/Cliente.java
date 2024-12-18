@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -21,101 +22,102 @@ import jakarta.validation.constraints.Size;
 @Table(name = "tb_clientes")
 public class Cliente {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	@NotBlank
-	private String nome;
+    @NotBlank
+    private String nome;
 
-	@Column(unique = true) 
-	@NotBlank
-	@NotBlank
-	private String email;
+    @Column(unique = true)
+    @NotBlank
+    @NotBlank
+    private String email;
 
-	@NotBlank
-	private String telefone;
-    
-	@Size(min = 11, max = 14)
-	@Column(unique = true) 
-	@NotBlank
-	@NotNull 
-	private String cpf;
+    @NotBlank
+    private String telefone;
 
-	@NotBlank
-	private String endereco;
+    @Schema(example = "xxx.xxx.xxx-xx")
+    @Size(min = 11, max = 14)
+    @Column(unique = true)
+    @NotBlank
+    @NotNull
+    private String cpf;
 
-	private boolean deleted = false;
+    @NotBlank
+    private String endereco;
 
-	private Boolean convenio; 
+    private boolean deleted = false;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "cliente", cascade = CascadeType.REMOVE)
-	@JsonIgnoreProperties("clientes")
-	private List<Consulta> consulta;
+    private Boolean convenio;
 
-	public Long getId() {
-		return id;
-	}
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "cliente", cascade = CascadeType.REMOVE)
+    @JsonIgnoreProperties("clientes")
+    private List<Consulta> consulta;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public String getNome() {
-		return nome;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
+    public String getNome() {
+        return nome;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public String getTelefone() {
-		return telefone;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public void setTelefone(String telefone) {
-		this.telefone = telefone;
-	}
+    public String getTelefone() {
+        return telefone;
+    }
 
-	public String getCpf() {
-		return cpf;
-	}
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
 
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
-	}
+    public String getCpf() {
+        return cpf;
+    }
 
-	public String getEndereco() {
-		return endereco;
-	}
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
 
-	public void setEndereco(String endereco) {
-		this.endereco = endereco;
-	}
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
 
 
-	public Boolean getConvenio() {
-		return convenio;
-	}
+    public Boolean getConvenio() {
+        return convenio;
+    }
 
-	public void setConvenio(Boolean convenio) {
-		this.convenio = convenio;
-	}
+    public void setConvenio(Boolean convenio) {
+        this.convenio = convenio;
+    }
 
-	public List<Consulta> getConsulta() {
-		return consulta;
-	}
+    public List<Consulta> getConsulta() {
+        return consulta;
+    }
 
-	public void setConsulta(List<Consulta> consulta) {
-		this.consulta = consulta;
-	}
+    public void setConsulta(List<Consulta> consulta) {
+        this.consulta = consulta;
+    }
 
 }

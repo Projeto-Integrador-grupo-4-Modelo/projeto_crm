@@ -13,34 +13,34 @@ import com.generation.crm.model.Cliente;
 
 public interface ClienteRepository extends JpaRepository<Cliente, Long> {
 
-	@Query(value = "SELECT * FROM db_crm.tb_clientes WHERE nome LIKE %:nome% AND deleted = 0", nativeQuery = true)
-	public List<Cliente> findAllByNome(@Param("nome") String nome);
+    @Query(value = "SELECT * FROM db_crm.tb_clientes WHERE nome LIKE %:nome% AND deleted = 0", nativeQuery = true)
+    public List<Cliente> findAllByNome(@Param("nome") String nome);
 
-	@Query(value = "SELECT * FROM db_crm.tb_clientes WHERE cpf = :cpf AND deleted = 0", nativeQuery = true)
-	public Cliente findAllByCpf(@Param("cpf") String cpf);
+    @Query(value = "SELECT * FROM db_crm.tb_clientes WHERE cpf = :cpf AND deleted = 0", nativeQuery = true)
+    public Cliente findAllByCpf(@Param("cpf") String cpf);
 
-	@Query(value = "SELECT * FROM db_crm.tb_clientes WHERE convenio = :convenio AND deleted = 0", nativeQuery = true)
-	List<Cliente> findByConvenio(boolean convenio);
+    @Query(value = "SELECT * FROM db_crm.tb_clientes WHERE convenio = :convenio AND deleted = 0", nativeQuery = true)
+    List<Cliente> findByConvenio(boolean convenio);
 
-	boolean existsByCpf(@Param("cpf") String cpf);
+    boolean existsByCpf(@Param("cpf") String cpf);
 
-	@Query(value = "SELECT * FROM db_crm.tb_clientes WHERE id=:id AND convenio = 1 AND deleted = 0", nativeQuery = true)
-	Optional<Cliente> verificarConvenio(Long id);
+    @Query(value = "SELECT * FROM db_crm.tb_clientes WHERE id=:id AND convenio = 1 AND deleted = 0", nativeQuery = true)
+    Optional<Cliente> verificarConvenio(Long id);
 
-	@Modifying
-	@Transactional
-	@Query(value = "UPDATE db_crm.tb_clientes SET deleted = 1 WHERE id=:id", nativeQuery = true)
-	void deleteLogic(Long id);
+    @Modifying
+    @Transactional
+    @Query(value = "UPDATE db_crm.tb_clientes SET deleted = 1 WHERE id=:id", nativeQuery = true)
+    void deleteLogic(Long id);
 
-	@Modifying
-	@Transactional
-	@Query(value = "UPDATE db_crm.tb_clientes SET deleted = 0 WHERE id=:id", nativeQuery = true)
-	void restore(Long id);
+    @Modifying
+    @Transactional
+    @Query(value = "UPDATE db_crm.tb_clientes SET deleted = 0 WHERE id=:id", nativeQuery = true)
+    void restore(Long id);
 
-	@Query(value = "SELECT * FROM db_crm.tb_clientes WHERE deleted = 0 AND id = :id", nativeQuery = true)
-	Optional<Cliente> findByIdLogic(Long id);
+    @Query(value = "SELECT * FROM db_crm.tb_clientes WHERE deleted = 0 AND id = :id", nativeQuery = true)
+    Optional<Cliente> findByIdLogic(Long id);
 
-	@Query(value = "SELECT * FROM db_crm.tb_clientes WHERE deleted = 0", nativeQuery = true)
-	List<Cliente> findAllLogic();
+    @Query(value = "SELECT * FROM db_crm.tb_clientes WHERE deleted = 0", nativeQuery = true)
+    List<Cliente> findAllLogic();
 
 }

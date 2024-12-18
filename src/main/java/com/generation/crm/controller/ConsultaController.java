@@ -29,58 +29,65 @@ import jakarta.validation.Valid;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class ConsultaController {
 
-	@Autowired
-	private ConsultaRepository consultaRepository;
+    @Autowired
+    private ConsultaRepository consultaRepository;
 
-	@GetMapping
-	public ResponseEntity<List<Consulta>> getAll() {
-		return ResponseEntity.ok(consultaRepository.findAllLogic());
-	}
+    @Operation(summary = "Buscar todas consultas", tags = {"Consultas"}, description = "Buscar todas as consultas")
+    @GetMapping
+    public ResponseEntity<List<Consulta>> getAll() {
+        return ResponseEntity.ok(consultaRepository.findAllLogic());
+    }
 
-	@GetMapping("/{id}")
-	public ResponseEntity<Consulta> getById(@PathVariable Long id) {
-		return consultaRepository.findByIdLogic(id).map(resposta -> ResponseEntity.ok(resposta))
-				.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
-	}
+    @Operation(summary = "Buscar consultas pelo id", tags = {"Consultas"}, description = "Busca uma consulta cadastrada pelo id")
+    @GetMapping("/{id}")
+    public ResponseEntity<Consulta> getById(@PathVariable Long id) {
+        return consultaRepository.findByIdLogic(id).map(resposta -> ResponseEntity.ok(resposta))
+                .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+    }
 
-	@GetMapping("/especialidade/{especialidade}")
-	public ResponseEntity<List<Consulta>> getByEspecialidade(@PathVariable String especialidade) {
-		return ResponseEntity.ok(consultaRepository.findAllByEspecialidade(especialidade));
-	}
+    @Operation(summary = "Buscar consulta pela especialidade", tags = {"Consultas"}, description = "Busca uma consulta cadastrada pela sua especialidade")
+    @GetMapping("/especialidade/{especialidade}")
+    public ResponseEntity<List<Consulta>> getByEspecialidade(@PathVariable String especialidade) {
+        return ResponseEntity.ok(consultaRepository.findAllByEspecialidade(especialidade));
+    }
 
-	@PostMapping
-	public ResponseEntity<Consulta> post(@Valid @RequestBody Consulta consulta) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(consultaRepository.save(consulta));
-	}
+    @Operation(summary = "Cadastra consultas", tags = {"Consultas"}, description = "Cadastra uma consulta com seus dados")
+    @PostMapping
+    public ResponseEntity<Consulta> post(@Valid @RequestBody Consulta consulta) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(consultaRepository.save(consulta));
+    }
 
-	@PutMapping
-	public ResponseEntity<Consulta> put(@Valid @RequestBody Consulta consulta) {
-		return consultaRepository.findByIdLogic(consulta.getId())
-				.map(resposta -> ResponseEntity.status(HttpStatus.CREATED).body(consultaRepository.save(consulta)))
-				.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
-	}
+    @Operation(summary = "Atualiza uma consulta", tags = {"Consultas"}, description = "Atualiza uma consulta cadastrada e seus dados ")
+    @PutMapping
+    public ResponseEntity<Consulta> put(@Valid @RequestBody Consulta consulta) {
+        return consultaRepository.findByIdLogic(consulta.getId())
+                .map(resposta -> ResponseEntity.status(HttpStatus.CREATED).body(consultaRepository.save(consulta)))
+                .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+    }
 
-	@ResponseStatus(HttpStatus.NO_CONTENT)
-	@DeleteMapping("/{id}")
-	public void delete(@PathVariable Long id) {
-		Optional<Consulta> consulta = consultaRepository.findByIdLogic(id);
+    @Operation(summary = "Deleta uma consulta", tags = {"Consultas"}, description = "Deleta uma consulta cadastrada logicamente, sem apagar do banco alterando apenas seu status para false")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
+        Optional<Consulta> consulta = consultaRepository.findByIdLogic(id);
 
-		if (consulta.isEmpty())
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        if (consulta.isEmpty())
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 
-		consultaRepository.deleteLogic(id);
-	}
+        consultaRepository.deleteLogic(id);
+    }
 
-	@ResponseStatus(HttpStatus.NO_CONTENT)
-	@PutMapping("restaurar/{id}")
-	public void restore(@PathVariable Long id) {
-		Optional<Consulta> consulta = consultaRepository.findById(id);
+    @Operation(summary = "Restaura status da consulta", tags = {"Consultas"}, description = "Restaura o status de uma consulta deletada anteriormente para true")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PutMapping("restaurar/{id}")
+    public void restore(@PathVariable Long id) {
+        Optional<Consulta> consulta = consultaRepository.findById(id);
 
-		if (consulta.isEmpty())
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        if (consulta.isEmpty())
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 
 
-		consultaRepository.restore(id);
-	}
+        consultaRepository.restore(id);
+    }
 
 }

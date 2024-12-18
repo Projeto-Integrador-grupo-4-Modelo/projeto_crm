@@ -1,7 +1,6 @@
 package com.generation.crm.exceptions;
 
 
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -14,7 +13,7 @@ import java.util.NoSuchElementException;
 public class Exceptions {
 
     @ExceptionHandler(NoSuchElementException.class)
-    public ResponseEntity<ResponseError> noSuchElementException(NoSuchElementException exception){
+    public ResponseEntity<ResponseError> noSuchElementException(NoSuchElementException exception) {
         ResponseError responseError = new ResponseError(
                 exception.getMessage(),
                 HttpStatus.NOT_FOUND,

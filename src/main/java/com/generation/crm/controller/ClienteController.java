@@ -47,27 +47,32 @@ public class ClienteController {
         return ResponseEntity.ok(clienteRepository.findAllLogic());
     }
 
+    @Operation(summary = "Buscar todos Clientes", tags = {"Clientes"}, description = "Buscar todos os Clientes cadastrados")
     @GetMapping("/{id}")
     public ResponseEntity<Cliente> getById(@PathVariable Long id) {
         return clienteRepository.findByIdLogic(id).map(resposta -> ResponseEntity.ok(resposta))
                 .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
+    @Operation(summary = "Busca um Cliente pelo nome", tags = {"Clientes"}, description = "Busca um Cliente cadastrado pelo seu nome")
     @GetMapping("/nome/{nome}")
     public ResponseEntity<List<Cliente>> getByNome(@PathVariable String nome) {
         return ResponseEntity.ok(clienteRepository.findAllByNome(nome));
     }
 
+    @Operation(summary = "Busca um Cliente pelo seu cpf", tags = {"Clientes"}, description = "Busca um Cliente cadastrado pelo seu cpf")
     @GetMapping("/cpf/{cpf}")
     public ResponseEntity<Cliente> getByCpf(@PathVariable String cpf) {
         return ResponseEntity.ok(clienteRepository.findAllByCpf(cpf));
     }
 
+    @Operation(summary = "Verifica convenio do cliente", tags = {"Clientes"}, description = "Verifica status do convenio do cliente true ou false")
     @GetMapping("/{id}/verificarConvenio")
     public ResponseEntity<Cliente> verificarConvenio(@PathVariable Long id) {
         return ResponseEntity.ok(clienteService.verificarConvenio(id));
     }
 
+    @Operation(summary = "Cadastra Cliente", tags = {"Clientes"}, description = "Cadastra um cliente com seus dados")
     @PostMapping
     public ResponseEntity<Cliente> post(@Valid @RequestBody Cliente cliente) {
         if (!clienteRepository.existsByCpf(cliente.getCpf())) {
@@ -76,6 +81,7 @@ public class ClienteController {
         throw new ConstraintViolationException("Este CPF já existe!", null);
     }
 
+    @Operation(summary = "Atualiza Cliente", tags = {"Clientes"}, description = "Atualiza um cliente e seus dados")
     @PutMapping
     public ResponseEntity<Cliente> put(@Valid @RequestBody Cliente cliente) {
         return clienteRepository.findByIdLogic(cliente.getId())
@@ -83,6 +89,7 @@ public class ClienteController {
                 .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
+    @Operation(summary = "Deleta Cliente", tags = {"Clientes"}, description = "Deleta um cliente cadastrado logicamente alterando apenas seus status de true para false, sem apagar do banco de dados")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
@@ -95,6 +102,7 @@ public class ClienteController {
         clienteRepository.deleteLogic(id);
     }
 
+    @Operation(summary = "Restaura Cliente", tags = {"Clientes"}, description = "Restaura um cliente cadastrado logicamente alterando apenas seus status de false para true")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PutMapping("restaurar/{id}")
     public void restore(@PathVariable Long id) {

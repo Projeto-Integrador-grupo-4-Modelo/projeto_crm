@@ -1,60 +1,60 @@
 package com.generation.crm.model;
 
 public class UsuarioLogin {
-	
-	private Long id;
-	private String nome;
-	private String usuario;
-	private String senha;
-	private String foto;
-	private String token;
 
-	public Long getId() {
-		return this.id;
-	}
+    private Long id;
+    private String nome;
+    private String usuario;
+    private String senha;
+    private String foto;
+    private String token;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public Long getId() {
+        return this.id;
+    }
 
-	public String getNome() {
-		return this.nome;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
+    public String getNome() {
+        return this.nome;
+    }
 
-	public String getUsuario() {
-		return this.usuario;
-	}
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
-	public void setUsuario(String usuario) {
-		this.usuario = usuario;
-	}
+    public String getUsuario() {
+        return this.usuario;
+    }
 
-	public String getSenha() {
-		return this.senha;
-	}
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
 
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
+    public String getSenha() {
+        return this.senha;
+    }
 
-	public String getFoto() {
-		return this.foto;
-	}
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
 
-	public void setFoto(String foto) {
-		this.foto = foto;
-	}
+    public String getFoto() {
+        return this.foto;
+    }
 
-	public String getToken() {
-		return this.token;
-	}
+    public void setFoto(String foto) {
+        this.foto = foto;
+    }
 
-	public void setToken(String token) {
-		this.token = token;
-	}
+    public String getToken() {
+        return this.token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
 
 }
