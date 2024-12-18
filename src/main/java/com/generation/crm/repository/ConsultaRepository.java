@@ -13,33 +13,33 @@ import org.springframework.transaction.annotation.Transactional;
 
 public interface ConsultaRepository extends JpaRepository<Consulta, Long> {
 
-    @Query(value = "SELECT * FROM tb_consultas WHERE especialidade LIKE %:especialidade% AND deleted = 0", nativeQuery = true)
+    @Query(value = "SELECT * FROM tb_consultas WHERE especialidade LIKE %:especialidade% AND deleted = FALSE", nativeQuery = true)
     public List<Consulta> findAllByEspecialidade(@Param("especialidade") String especialidade);
 
     @Modifying
     @Transactional
-    @Query(value = "UPDATE tb_consultas SET deleted = 1 WHERE cliente_id=:id", nativeQuery = true)
+    @Query(value = "UPDATE tb_consultas SET deleted = TRUE WHERE cliente_id=:id", nativeQuery = true)
     void deleteLogicFromUser(Long id);
 
     @Modifying
     @Transactional
-    @Query(value = "UPDATE tb_consultas SET deleted = 0 WHERE cliente_id=:id", nativeQuery = true)
+    @Query(value = "UPDATE tb_consultas SET deleted = FALSE WHERE cliente_id=:id", nativeQuery = true)
     void restoreFromUser(Long id);
 
-    @Query(value = "SELECT * FROM tb_consultas WHERE deleted = 0", nativeQuery = true)
+    @Query(value = "SELECT * FROM tb_consultas WHERE deleted = FALSE", nativeQuery = true)
     List<Consulta> findAllLogic();
 
-    @Query(value = "SELECT * FROM tb_consultas WHERE deleted = 0 AND id = :id", nativeQuery = true)
+    @Query(value = "SELECT * FROM tb_consultas WHERE deleted = FALSE AND id = :id", nativeQuery = true)
     Optional<Consulta> findByIdLogic(Long id);
 
     @Modifying
     @Transactional
-    @Query(value = "UPDATE tb_consultas SET deleted = 1 WHERE id=:id", nativeQuery = true)
+    @Query(value = "UPDATE tb_consultas SET deleted = TRUE WHERE id=:id", nativeQuery = true)
     void deleteLogic(Long id);
 
     @Modifying
     @Transactional
-    @Query(value = "UPDATE tb_clientes SET deleted = 0 WHERE id=:id", nativeQuery = true)
+    @Query(value = "UPDATE tb_clientes SET deleted = FALSE WHERE id=:id", nativeQuery = true)
     void restore(Long id);
 
 
