@@ -2,7 +2,7 @@
 
 :heavy_check_mark: [Link do Escopo](https://docs.google.com/document/d/1zghDvfozniPHFTFw2VUU5o050VF6lTaKD9dwTKNj9ps/edit?tab=t.0)
 
-:heavy_check_mark:[Documentação Swagger.pdf](https://github.com/user-attachments/files/18183496/Swagger.UI.pdf)
+:heavy_check_mark:[Documentação Swagger.pdf](https://github.com/user-attachments/files/18185524/Swagger.UI.1.pdf)
 
 :heavy_check_mark: [Link do Deploy](https://projeto-crm.onrender.com)
 
