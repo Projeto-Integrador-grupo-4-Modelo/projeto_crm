@@ -4,7 +4,7 @@
 
 :heavy_check_mark:[Documentação Swagger.pdf](https://github.com/user-attachments/files/18185524/Swagger.UI.1.pdf)
 
-:heavy_check_mark: [Link do Deploy](https://projeto-crm.onrender.com)
+:heavy_check_mark: [Link do Deploy](https://projeto-crm.onrender.com/swagger-ui/index.html)
 
 
 :heavy_check_mark: Relação entre tabelas:
