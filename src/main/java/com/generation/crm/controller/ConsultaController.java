@@ -3,6 +3,7 @@ package com.generation.crm.controller;
 import java.util.List;
 import java.util.Optional;
 
+import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,22 +37,26 @@ public class ConsultaController {
 		return ResponseEntity.ok(consultaRepository.findAll());
 	}
 
+	@Operation(summary = "Encontra a consulta", tags = {"Consulta"}, description = "Encontra uma consulta pelo id")
 	@GetMapping("/{id}")
 	public ResponseEntity<Consulta> getById(@PathVariable Long id) {
 		return consultaRepository.findById(id).map(resposta -> ResponseEntity.ok(resposta))
 				.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
 	}
 
+	@Operation(summary = "Encontra a consulta por especialidade", tags = {"Consulta"}, description = "Encontra uma consulta pela sua especialidade")
 	@GetMapping("/especialidade/{especialidade}")
 	public ResponseEntity<List<Consulta>> getByEspecialidade(@PathVariable String especialidade) {
 		return ResponseEntity.ok(consultaRepository.findAllByEspecialidadeContainingIgnoreCase(especialidade));
 	}
 
+	@Operation(summary = "Cadastra uma consulta", tags = {"Consulta"}, description = "Cadastra uma consulta com seus atributos")
 	@PostMapping
 	public ResponseEntity<Consulta> post(@Valid @RequestBody Consulta consulta) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(consultaRepository.save(consulta));
 	}
 
+	@Operation(summary = "Atualiza uma consulta", tags = {"Consulta"}, description = "Atualiza uma consulta e seus dados pelo id")
 	@PutMapping
 	public ResponseEntity<Consulta> put(@Valid @RequestBody Consulta consulta) {
 		return consultaRepository.findById(consulta.getId())
@@ -59,6 +64,7 @@ public class ConsultaController {
 				.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
 	}
 
+	@Operation(summary = "Deleta uma consulta", tags = {"Consulta"}, description = "Deleta uma consulta pelo id")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable Long id) {

@@ -19,7 +19,16 @@ public class SwaggerConfig {
         return new OpenAPI()
                 .info(new Info()
                         .title("Projeto Integrador - Sistema CRM Médico")
-                        .description("Projeto Integrador - Sistema CRM Médico")
+                        .description("""
+                               <html><b> Projeto Integrador - Sistema CRM Médico\n\n 
+                                Vitor Cavalcante - TESTER\n
+                                Priscila Bortniuk - PRODUCT OWNER\n
+                                Victória Lara - DESENVOLVEDORA\n
+                                Guilherme Kaynam - DESENVOLVEDOR\n
+                                Rubio Dainton - DESENVOLVEDOR\n
+                                Kemilly Fagundes - DESENVOLVEDORA\n                         
+                                Bruna Bosco - DESENVOLVEDORA\n
+                                Bianca Jesus - DESENVOLVEDORA </b></html>""")
                         .version("v0.0.1")
                         .license(new License()
                                 .name("Generation Brasil")
