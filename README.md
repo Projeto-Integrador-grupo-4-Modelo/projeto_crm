@@ -9,8 +9,8 @@
 
 :heavy_check_mark: Relação entre tabelas:
 
+![image](https://github.com/user-attachments/assets/fbf7dacc-21de-4817-a966-f0c484a1f768)
 
-![image](https://github.com/user-attachments/assets/f3e45642-4ee4-4d94-aa1c-2794833e15b2)
 
 ## Tecnologias usada no projeto:
 <div style="sisplay: inline_block"><br/>
