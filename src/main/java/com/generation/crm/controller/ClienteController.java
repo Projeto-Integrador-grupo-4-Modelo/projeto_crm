@@ -42,12 +42,13 @@ public class ClienteController {
     @Autowired
     private ConsultaRepository consultaRepository;
 
+    @Operation(summary = "Buscar todos Clientes", tags = {"Clientes"}, description = "Buscar todos os Clientes cadastrados")
     @GetMapping
     public ResponseEntity<List<Cliente>> getAll() {
         return ResponseEntity.ok(clienteRepository.findAllLogic());
     }
 
-    @Operation(summary = "Buscar todos Clientes", tags = {"Clientes"}, description = "Buscar todos os Clientes cadastrados")
+    @Operation(summary = "Buscar cliente pelo id", tags = {"Clientes"}, description = "Buscar um Cliente cadastrado pelo seu id")
     @GetMapping("/{id}")
     public ResponseEntity<Cliente> getById(@PathVariable Long id) {
         return clienteRepository.findByIdLogic(id).map(resposta -> ResponseEntity.ok(resposta))
