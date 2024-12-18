@@ -34,46 +34,53 @@ public class ConsultaController {
 
 	@GetMapping
 	public ResponseEntity<List<Consulta>> getAll() {
-		return ResponseEntity.ok(consultaRepository.findAll());
+		return ResponseEntity.ok(consultaRepository.findAllLogic());
 	}
 
-	@Operation(summary = "Encontra a consulta", tags = {"Consulta"}, description = "Encontra uma consulta pelo id")
 	@GetMapping("/{id}")
 	public ResponseEntity<Consulta> getById(@PathVariable Long id) {
-		return consultaRepository.findById(id).map(resposta -> ResponseEntity.ok(resposta))
+		return consultaRepository.findByIdLogic(id).map(resposta -> ResponseEntity.ok(resposta))
 				.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
 	}
 
-	@Operation(summary = "Encontra a consulta por especialidade", tags = {"Consulta"}, description = "Encontra uma consulta pela sua especialidade")
 	@GetMapping("/especialidade/{especialidade}")
 	public ResponseEntity<List<Consulta>> getByEspecialidade(@PathVariable String especialidade) {
-		return ResponseEntity.ok(consultaRepository.findAllByEspecialidadeContainingIgnoreCase(especialidade));
+		return ResponseEntity.ok(consultaRepository.findAllByEspecialidade(especialidade));
 	}
 
-	@Operation(summary = "Cadastra uma consulta", tags = {"Consulta"}, description = "Cadastra uma consulta com seus atributos")
 	@PostMapping
 	public ResponseEntity<Consulta> post(@Valid @RequestBody Consulta consulta) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(consultaRepository.save(consulta));
 	}
 
-	@Operation(summary = "Atualiza uma consulta", tags = {"Consulta"}, description = "Atualiza uma consulta e seus dados pelo id")
 	@PutMapping
 	public ResponseEntity<Consulta> put(@Valid @RequestBody Consulta consulta) {
-		return consultaRepository.findById(consulta.getId())
+		return consultaRepository.findByIdLogic(consulta.getId())
 				.map(resposta -> ResponseEntity.status(HttpStatus.CREATED).body(consultaRepository.save(consulta)))
 				.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
 	}
 
-	@Operation(summary = "Deleta uma consulta", tags = {"Consulta"}, description = "Deleta uma consulta pelo id")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable Long id) {
+		Optional<Consulta> consulta = consultaRepository.findByIdLogic(id);
+
+		if (consulta.isEmpty())
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+
+		consultaRepository.deleteLogic(id);
+	}
+
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@PutMapping("restaurar/{id}")
+	public void restore(@PathVariable Long id) {
 		Optional<Consulta> consulta = consultaRepository.findById(id);
 
 		if (consulta.isEmpty())
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 
-		consultaRepository.deleteById(id);
+
+		consultaRepository.restore(id);
 	}
 
 }

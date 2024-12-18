@@ -35,6 +35,8 @@ public class Consulta {
     @NotBlank
     private String status;
 
+    private boolean deleted = false;
+
     @ManyToOne
     @JsonIgnoreProperties("consulta")
     private Cliente cliente;

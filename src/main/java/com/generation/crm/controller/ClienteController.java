@@ -3,6 +3,7 @@ package com.generation.crm.controller;
 import java.util.List;
 import java.util.Optional;
 
+import com.generation.crm.repository.ConsultaRepository;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -38,37 +39,35 @@ public class ClienteController {
     @Autowired
     private ClienteService clienteService;
 
+    @Autowired
+    private ConsultaRepository consultaRepository;
+
     @GetMapping
     public ResponseEntity<List<Cliente>> getAll() {
-        return ResponseEntity.ok(clienteRepository.findAll());
+        return ResponseEntity.ok(clienteRepository.findAllLogic());
     }
 
-    @Operation(summary = "Encontra um Cliente", tags = {"Cliente"}, description = "Encontra um Cliente cadastrado pelo id")
     @GetMapping("/{id}")
     public ResponseEntity<Cliente> getById(@PathVariable Long id) {
-        return clienteRepository.findById(id).map(resposta -> ResponseEntity.ok(resposta))
+        return clienteRepository.findByIdLogic(id).map(resposta -> ResponseEntity.ok(resposta))
                 .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
-    @Operation(summary = "Encontra um cliente pelo nome", tags = {"Cliente"}, description = "Busca um Cliente pelo seu nome enviado como parametro na url")
     @GetMapping("/nome/{nome}")
     public ResponseEntity<List<Cliente>> getByNome(@PathVariable String nome) {
-        return ResponseEntity.ok(clienteRepository.findAllByNomeContainingIgnoreCase(nome));
+        return ResponseEntity.ok(clienteRepository.findAllByNome(nome));
     }
 
-    @Operation(summary = "Encontra um cliente pelo cpf", tags = {"Cliente"}, description = "Busca um Cliente pelo seu cpf enviado como parametro na url")
     @GetMapping("/cpf/{cpf}")
     public ResponseEntity<Cliente> getByCpf(@PathVariable String cpf) {
         return ResponseEntity.ok(clienteRepository.findAllByCpf(cpf));
     }
 
-    @Operation(summary = "Verifica se o cliente tem convenio", tags = {"Cliente"}, description = "Verifica se o cliente tem convenio retornando true ou false")
     @GetMapping("/{id}/verificarConvenio")
     public ResponseEntity<Cliente> verificarConvenio(@PathVariable Long id) {
         return ResponseEntity.ok(clienteService.verificarConvenio(id));
     }
 
-    @Operation(summary = "Cadastra cliente", tags = {"Cliente"}, description = "Cadastra um cliente com seus dados")
     @PostMapping
     public ResponseEntity<Cliente> post(@Valid @RequestBody Cliente cliente) {
         if (!clienteRepository.existsByCpf(cliente.getCpf())) {
@@ -77,15 +76,13 @@ public class ClienteController {
         throw new ConstraintViolationException("Este CPF já existe!", null);
     }
 
-    @Operation(summary = "Atualiza um cliente", tags = {"Cliente"}, description = "Atualiza um Cliente e seus dados pelo id")
     @PutMapping
     public ResponseEntity<Cliente> put(@Valid @RequestBody Cliente cliente) {
-        return clienteRepository.findById(cliente.getId())
+        return clienteRepository.findByIdLogic(cliente.getId())
                 .map(resposta -> ResponseEntity.status(HttpStatus.CREATED).body(clienteRepository.save(cliente)))
                 .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
-    @Operation(summary = "Deleta um cliente", tags = {"Cliente"}, description = "Deleta um cliente e seus dados")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
@@ -94,7 +91,21 @@ public class ClienteController {
         if (cliente.isEmpty())
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 
-        clienteRepository.deleteById(id);
+        consultaRepository.deleteLogicFromUser(id);
+        clienteRepository.deleteLogic(id);
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PutMapping("restaurar/{id}")
+    public void restore(@PathVariable Long id) {
+        Optional<Cliente> cliente = clienteRepository.findById(id);
+
+        if (cliente.isEmpty())
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+
+
+        consultaRepository.restoreFromUser(id);
+        clienteRepository.restore(id);
     }
 
 }
