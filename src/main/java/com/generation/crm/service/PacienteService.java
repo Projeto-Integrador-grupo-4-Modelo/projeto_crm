@@ -3,19 +3,19 @@ package com.generation.crm.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.generation.crm.model.Cliente;
-import com.generation.crm.repository.ClienteRepository;
+import com.generation.crm.model.Paciente;
+import com.generation.crm.repository.PacienteRepository;
 
 import java.util.NoSuchElementException;
 
 
 @Service
-	public class ClienteService {
+	public class PacienteService {
 
 	    @Autowired
-	    private ClienteRepository clienteRepository;
+	    private PacienteRepository clienteRepository;
 
-	    public Cliente verificarConvenio(Long clienteId) {
+	    public Paciente verificarConvenio(Long clienteId) {
 
 	        return clienteRepository.verificarConvenio(clienteId)
 	                .orElseThrow(() -> new NoSuchElementException("Cliente não encontrado"));

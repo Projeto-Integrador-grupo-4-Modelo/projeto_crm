@@ -9,23 +9,23 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.generation.crm.model.Cliente;
+import com.generation.crm.model.Paciente;
 
-public interface ClienteRepository extends JpaRepository<Cliente, Long> {
+public interface PacienteRepository extends JpaRepository<Paciente, Long> {
     //Alteração de 0 e 1 para FALSE e TRUE para o postgree reconhecer um valor boolean
     @Query(value = "SELECT * FROM tb_clientes WHERE nome LIKE %:nome% AND deleted = FALSE", nativeQuery = true)
-    public List<Cliente> findAllByNome(@Param("nome") String nome);
+    public List<Paciente> findAllByNome(@Param("nome") String nome);
 
     @Query(value = "SELECT * FROM tb_clientes WHERE cpf = :cpf AND deleted = FALSE", nativeQuery = true)
-    public Cliente findAllByCpf(@Param("cpf") String cpf);
+    public Paciente findAllByCpf(@Param("cpf") String cpf);
 
     @Query(value = "SELECT * FROM tb_clientes WHERE convenio = :convenio AND deleted = FALSE", nativeQuery = true)
-    List<Cliente> findByConvenio(boolean convenio);
+    List<Paciente> findByConvenio(boolean convenio);
 
     boolean existsByCpf(@Param("cpf") String cpf);
 
     @Query(value = "SELECT * FROM tb_clientes WHERE id=:id AND convenio = TRUE AND deleted = FALSE", nativeQuery = true)
-    Optional<Cliente> verificarConvenio(Long id);
+    Optional<Paciente> verificarConvenio(Long id);
 
     @Modifying
     @Transactional
@@ -38,9 +38,9 @@ public interface ClienteRepository extends JpaRepository<Cliente, Long> {
     void restore(Long id);
 
     @Query(value = "SELECT * FROM tb_clientes WHERE deleted = FALSE AND id = :id", nativeQuery = true)
-    Optional<Cliente> findByIdLogic(Long id);
+    Optional<Paciente> findByIdLogic(Long id);
 
     @Query(value = "SELECT * FROM tb_clientes WHERE deleted = FALSE", nativeQuery = true)
-    List<Cliente> findAllLogic();
+    List<Paciente> findAllLogic();
 
 }
